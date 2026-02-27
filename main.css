@@ -1,0 +1,185 @@
+html,
+body {
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* header and subtitle stay at top */
+  background-image: url(/img/background/bg.jpg);
+  background-size: cover;
+  padding-top: 100px; /* give some space from top */
+}
+
+h1 {
+  font-family: "Arial", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 0;
+}
+
+p {
+  font-family: "Arial", sans-serif;
+  color: rgba(255, 255, 255, 0.5);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 5px 0 20px;
+}
+
+.thumbs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 800px;
+  max-width: 100%;
+}
+
+.thumbs > a {
+  /* max-width: 150px; */
+  height: 200px;
+  margin: 15px;
+  overflow: hidden;
+  border-radius: 7px;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.327),
+    0 5px 8px 3px rgba(0, 0, 0, 0.6);
+  display: block;
+}
+
+.thumbs > a img {
+  transform: scale(1);
+  transition: transform 0.1s ease-in-out;
+  filter: grayscale(50%);
+  min-width: 100%;
+  min-height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  display: block;
+}
+
+.thumbs > a:hover img {
+  transform: scale(1.1);
+  filter: grayscale(0%);
+}
+
+.lightbox {
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition:
+    opacity 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
+}
+
+.lightbox:has(div:target) {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.lightbox a.nav {
+  text-decoration: none;
+  color: white;
+  font-size: 40px;
+  text-shadow: 0 2px 2px rgba(0, 0, 0, 0.8);
+  opacity: 0.5;
+  font-weight: 200;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100%;
+}
+
+.lightbox a.nav:hover {
+  opacity: 1;
+}
+
+.lightbox .target {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  transform: scale(0);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.lightbox .target > *:first-child,
+.lightbox .target > *:last-child {
+  flex: 0 0 100px;
+  text-align: center;
+}
+
+@media all and (max-width: 600px) {
+  .lightbox .target > *:first-child,
+  .lightbox .target > *:last-child {
+    flex: 0 0 50px;
+  }
+}
+
+.lightbox .target .content {
+  transform: scale(0.9);
+  opacity: 0;
+  /* don't stretch to fill entire flex container; grow only to fit image */
+  flex: 0 1 auto;
+  width: auto;
+  align-self: center;
+  /* ensure space for navigation arrows on both sides */
+  max-width: calc(100% - 200px);
+  max-height: 100%;
+  min-height: 0;
+  min-width: 0;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 3px white,
+    0 5px 8px 3px rgba(0, 0, 0, 0.6);
+  transition:
+    transform 0.25s ease-in-out,
+    opacity 0.25s ease-in-out;
+}
+
+.lightbox .target .content img {
+  max-width: 100%;
+  max-height: calc(100vh - 40px);
+  width: auto;
+  height: auto;
+  object-fit: contain; /* keep original aspect ratio inside lightbox */
+  display: block;
+  margin: 0;
+}
+
+.lightbox .target:target {
+  transform: scale(1);
+}
+
+.lightbox .target:target .content {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.lightbox .close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: white;
+  font-size: 36px;
+  text-decoration: none;
+  opacity: 0.9;
+  /* make sure closing link isn’t stretched by .nav rules */
+  height: auto;
+}
+
+.lightbox .close:hover {
+  opacity: 1;
+}
