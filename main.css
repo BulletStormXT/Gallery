@@ -10,7 +10,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start; /* header and subtitle stay at top */
-  background-image: url(img/background/bg.jpg);
+  background-image: url(../img/background/bg.jpg);
   background-size: cover;
   padding-top: 100px; /* give some space from top */
 }
